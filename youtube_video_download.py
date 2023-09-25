@@ -22,8 +22,8 @@ class VideoDownload:
             try:
                 yt = YouTube(url)
                 video_title = yt.title
-                #thumbnail_url = yt.thumbnail_url
-                return video_title#, thumbnail_url
+                thumbnail_url = yt.thumbnail_url
+                return video_title, thumbnail_url
             except Exception as e:
                 print(f"An error occurred: {str(e)}")
                 return None, None
