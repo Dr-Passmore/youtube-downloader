@@ -1,9 +1,25 @@
 import pytube
 import logging
+import re
 
 class VideoDownload:
     def __init__ (self):
         logging.info('VideoDownload')
+
+       
+
+    def check_url (url):
+        youtube_pattern = r'(https?://)?(www\.)?(youtube\.com|youtu\.be)/.+$'
+        
+        match = re.match(youtube_pattern, url)
+        
+        if match:
+            return True
+        else:
+            return False
+
+
+    
 
     
 logging.basicConfig(filename='YouTubeVideoDownloader.log', 
