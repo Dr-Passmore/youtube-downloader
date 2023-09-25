@@ -1,4 +1,4 @@
-import pytube
+from pytube import YouTube
 import logging
 import re
 
@@ -7,7 +7,6 @@ class VideoDownload:
         logging.info('VideoDownload')
 
        
-
     def check_url (url):
         youtube_pattern = r'(https?://)?(www\.)?(youtube\.com|youtu\.be)/.+$'
         
@@ -18,7 +17,11 @@ class VideoDownload:
         else:
             return False
 
+    def get_video_info (url):
+        
 
+    def download_video(url, quality):
+        
     
 
     
