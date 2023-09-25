@@ -31,9 +31,10 @@ class VideoDownload:
         else: 
             logging.error(f'{url} is not a Youtube Link')
 
-    #def download_video(url, quality):
-        
-    
+    def download_video(url, quality):
+        yt = YouTube(url)
+        stream = quality
+        stream.download('Downloads')
 
     
 logging.basicConfig(filename='YouTubeVideoDownloader.log', 
