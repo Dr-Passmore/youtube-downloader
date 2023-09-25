@@ -23,10 +23,11 @@ class VideoDownload:
                 yt = YouTube(url)
                 video_title = yt.title
                 thumbnail_url = yt.thumbnail_url
-                return video_title, thumbnail_url
+                video_streams = yt.streams.filter(file_extension="mp4", progressive=True)
+                return video_title, thumbnail_url, video_streams
             except Exception as e:
                 print(f"An error occurred: {str(e)}")
-                return None, None
+                return None, None, None
         else: 
             logging.error(f'{url} is not a Youtube Link')
 
