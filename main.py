@@ -8,6 +8,8 @@ class LoadingScript:
         logging.info('Initising Youtube Download App')
         youtube_video_download.VideoDownload()
         application_user_interface.UserInterface()
+        url = "https://www.youtube.com/watch?v=sr3W3XVXVB0&list=RDG8HCJSd_VL4"
+        print(youtube_video_download.VideoDownload.get_video_info(url))
 
 logging.basicConfig(filename='YouTubeVideoDownloader.log', 
                     filemode='a', 

@@ -18,9 +18,19 @@ class VideoDownload:
             return False
 
     def get_video_info (url):
-        
+        if VideoDownload.check_url(url) == True:
+            try:
+                yt = YouTube(url)
+                video_title = yt.title
+                #thumbnail_url = yt.thumbnail_url
+                return video_title#, thumbnail_url
+            except Exception as e:
+                print(f"An error occurred: {str(e)}")
+                return None, None
+        else: 
+            logging.error(f'{url} is not a Youtube Link')
 
-    def download_video(url, quality):
+    #def download_video(url, quality):
         
     
 
