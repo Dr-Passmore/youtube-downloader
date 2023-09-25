@@ -3,7 +3,7 @@ import logging
 
 class VideoDownload:
     def __init__ (self):
-        logging('VideoDownload')
+        logging.info('VideoDownload')
 
     
 logging.basicConfig(filename='YouTubeVideoDownloader.log', 

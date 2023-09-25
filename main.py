@@ -4,7 +4,7 @@ import youtube_video_download
 
 class LoadingScript:
     def __init__ (self):
-        logging('Initising Youtube Download App')
+        logging.info('Initising Youtube Download App')
         youtube_video_download.VideoDownload()
 
 logging.basicConfig(filename='YouTubeVideoDownloader.log', 
