@@ -3,6 +3,7 @@ import logging
 import re
 import os
 import requests
+import time
 
 class VideoDownload:
     def __init__ (self):
@@ -23,11 +24,14 @@ class VideoDownload:
         if VideoDownload.check_url(url) == True:
             try:
                 yt = YouTube(url)
+                time.sleep(2)
                 video_title = yt.title
+                
                 thumbnail_url = yt.thumbnail_url
                 #Downloads thumbnail
-                #VideoDownload.download_thumbnail(thumbnail_url)
+               
                 video_streams = yt.streams.filter(file_extension="mp4", progressive=True)
+                VideoDownload.download_thumbnail(thumbnail_url)
                 return video_title, thumbnail_url, video_streams
             except Exception as e:
                 print(f"An error occurred: {str(e)}")
@@ -40,9 +44,17 @@ class VideoDownload:
             os.makedirs('temp')
         
         temp_filename = os.path.join('temp', "temp.jpg")
-        #! download image
-        with open(temp_filename, "wb") as file:
-            file.write(thumbnail_url)
+        try:
+            response = requests.get(thumbnail_url)
+            if response.status_code == 200:
+                with open(temp_filename, "wb") as file:
+                    file.write(response.content)
+                print(f"Thumbnail downloaded and saved as: {temp_filename}")
+            else:
+                print("Failed to download thumbnail.")
+        except Exception as e:
+            print(f"An error occurred: {str(e)}")
+        
 
         
 
