@@ -3,10 +3,16 @@ import tkinter as tk
 
 class UserInterface:
     def __init__(self) -> None:
-        pass
+        self.window = tk.Tk()
+        self.window.title("YouTube Video Downloader")
+        self.window.geometry("500x500") 
+        
 
-    def create_window():
-        pass
+        UserInterface.create_window(self)
+
+    def create_window(self):
+        self.window.mainloop()
+        
 
     def exit():
         pass
@@ -19,7 +25,7 @@ class UserInterface:
     
     def display_quality():
         pass
-    
+
     def select_file_location():
         pass
 

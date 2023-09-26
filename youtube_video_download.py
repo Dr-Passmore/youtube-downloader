@@ -52,7 +52,7 @@ class VideoDownload():
             try:
                 yt = YouTube(url)
                 #? Short delay added to resolve unable to retrieve error
-                time.sleep(2)
+                time.sleep(5)
                 video_title = yt.title
                 thumbnail_url = yt.thumbnail_url
                 video_streams = yt.streams.filter(file_extension="mp4", progressive=True)
