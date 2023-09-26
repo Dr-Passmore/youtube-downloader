@@ -40,23 +40,30 @@ class VideoDownload:
             logging.error(f'{url} is not a Youtube Link')
 
     def download_thumbnail (thumbnail_url):
+        '''
+        Downloads the YouTube video thumbnail as a temporary file.
+
+        Parameters:
+        - thumbnail_url (str): The URL of the YouTube video thumbnail image.
+
+        This function fetches the thumbnail image from the provided URL and saves it as a temporary JPG file in the 'temp' folder. If the download is successful, the file path of the saved thumbnail is printed. If any error occurs during the process, an error message is displayed.
+
+        Args:
+        - thumbnail_url (str): The URL of the YouTube video thumbnail image.
+        '''
         if not os.path.exists('temp'):
             os.makedirs('temp')
-        
         temp_filename = os.path.join('temp', "temp.jpg")
         try:
             response = requests.get(thumbnail_url)
             if response.status_code == 200:
                 with open(temp_filename, "wb") as file:
                     file.write(response.content)
-                print(f"Thumbnail downloaded and saved as: {temp_filename}")
+                logging.info(f"Thumbnail downloaded and saved as: {temp_filename}")
             else:
-                print("Failed to download thumbnail.")
+                logging.info('Failed to download thumbnail.')
         except Exception as e:
-            print(f"An error occurred: {str(e)}")
-        
-
-        
+            logging.error(f"An error occurred: {str(e)}")
 
     def download_video(url, quality):
         yt = YouTube(url)

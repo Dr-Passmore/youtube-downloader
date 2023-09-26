@@ -9,7 +9,8 @@ class LoadingScript:
         youtube_video_download.VideoDownload()
         application_user_interface.UserInterface()
         #url = "https://www.youtube.com/watch?v=sr3W3XVXVB0&list=RDG8HCJSd_VL4"
-        url = 'https://www.youtube.com/shorts/YUtsThHa7SU'
+        #url = 'https://www.youtube.com/shorts/YUtsThHa7SU'
+        url = 'https://www.youtube.com/watch?v=y1sF6ZeASU0'
         title, thumbnail, streams = youtube_video_download.VideoDownload.get_video_info(url)
         print(title)
         print(thumbnail)
