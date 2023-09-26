@@ -8,13 +8,21 @@ import time
 class VideoDownload:
     def __init__ (self):
         logging.info('VideoDownload')
-
        
     def check_url (url):
-        youtube_pattern = r'(https?://)?(www\.)?(youtube\.com|youtu\.be)/.+$'
-        
+        '''
+        Checks if a given URL is a valid YouTube link.
+
+        Parameters:
+        - url (str): The URL to be checked.
+
+        This function uses a regular expression pattern to determine if the provided URL matches the format of a valid YouTube link. The pattern verifies if the URL starts with "http://", "https://", "www.youtube.com/", or "youtu.be/" followed by additional characters. If the URL matches this pattern, it is considered a valid YouTube link, and the function returns `True`. Otherwise, it returns `False`.
+
+        Returns:
+        - is_valid (bool): `True` if the URL is a valid YouTube link, `False` otherwise.
+        '''
+        youtube_pattern = r'(https?://)?(www\.)?(youtube\.com|youtu\.be|m\.youtube\.com)/.+' #r'(https?://)?(www\.)?(youtube\.com|youtu\.be)/.+$'
         match = re.match(youtube_pattern, url)
-        
         if match:
             return True
         else:
@@ -83,11 +91,31 @@ class VideoDownload:
             logging.error(f"An error occurred: {str(e)}")
 
     def download_video(url, quality):
+        '''
+        Downloads a video from YouTube using the provided video stream quality and saves it to the 'Downloads' folder.
+
+        Parameters:
+        - url (str): The URL of the YouTube video to download.
+        - stream (Stream): The chosen video stream quality to download (e.g., <Stream: itag="22" mime_type="video/mp4" res="720p" fps="30fps" vcodec="avc1.64001F" acodec="mp4a.40.2" progressive="True" type="video">).
+
+        This function downloads a video from YouTube using the provided URL and the specified video stream quality, which should be a `Stream` object containing information about the video stream. The video is saved to the 'Downloads' folder. The function uses the `pytube` library to handle the download process.
+
+        Args:
+        - url (str): The URL of the YouTube video.
+        - stream (Stream): The chosen video stream quality.
+
+        Example usage:
+        stream_info = <Stream: itag="22" mime_type="video/mp4" res="720p" fps="30fps" vcodec="avc1.64001F" acodec="mp4a.40.2" progressive="True" type="video">
+        download_video("https://www.youtube.com/watch?v=VIDEO_ID", stream_info)
+
+        Note:
+        - Ensure the 'pytube' library is installed to use this function.
+        - The downloaded video will be saved in the 'Downloads' folder with the original video's title as the filename.
+        '''
         yt = YouTube(url)
         stream = quality
         stream.download('Downloads')
 
-    
 logging.basicConfig(filename='YouTubeVideoDownloader.log', 
                     filemode='a', 
                     level=logging.INFO,
