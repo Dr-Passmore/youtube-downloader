@@ -1,6 +1,8 @@
 from pytube import YouTube
 import logging
 import re
+import os
+import requests
 
 class VideoDownload:
     def __init__ (self):
@@ -23,6 +25,8 @@ class VideoDownload:
                 yt = YouTube(url)
                 video_title = yt.title
                 thumbnail_url = yt.thumbnail_url
+                #Downloads thumbnail
+                #VideoDownload.download_thumbnail(thumbnail_url)
                 video_streams = yt.streams.filter(file_extension="mp4", progressive=True)
                 return video_title, thumbnail_url, video_streams
             except Exception as e:
@@ -30,6 +34,17 @@ class VideoDownload:
                 return None, None, None
         else: 
             logging.error(f'{url} is not a Youtube Link')
+
+    def download_thumbnail (thumbnail_url):
+        if not os.path.exists('temp'):
+            os.makedirs('temp')
+        
+        temp_filename = os.path.join('temp', "temp.jpg")
+        #! download image
+        with open(temp_filename, "wb") as file:
+            file.write(thumbnail_url)
+
+        
 
     def download_video(url, quality):
         yt = YouTube(url)
