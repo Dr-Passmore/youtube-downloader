@@ -21,20 +21,37 @@ class VideoDownload:
             return False
 
     def get_video_info (url):
+        '''
+        Retrieves information about a YouTube video, including its title, thumbnail URL, and available video streams.
+
+        Parameters:
+        - url (str): The URL of the YouTube video to retrieve information for.
+
+        This function checks if the provided URL is a valid YouTube link using the `check_url` method from the `VideoDownload` class. If the URL is valid, it proceeds to:
+        - Fetch the video's title.
+        - Retrieve the thumbnail URL of the video.
+        - Download the video's thumbnail using the `download_thumbnail` method from the `VideoDownload` class.
+        - Filter and obtain a list of available video streams (progressive MP4 streams) for the video.
+        
+        If any errors occur during this process, they are logged as errors, and the function returns `None` for all information fields. If the URL is not a valid YouTube link, an error is also logged.
+
+        Returns:
+        - video_title (str): The title of the YouTube video.
+        - thumbnail_url (str): The URL of the video's thumbnail image.
+        - video_streams (list): A list of available video streams for the video, represented as `Stream` objects. If no streams are found, this list is empty.
+        '''
         if VideoDownload.check_url(url) == True:
             try:
                 yt = YouTube(url)
+                #? Short delay added to resolve unable to retrieve error
                 time.sleep(2)
                 video_title = yt.title
-                
                 thumbnail_url = yt.thumbnail_url
-                #Downloads thumbnail
-               
                 video_streams = yt.streams.filter(file_extension="mp4", progressive=True)
                 VideoDownload.download_thumbnail(thumbnail_url)
                 return video_title, thumbnail_url, video_streams
             except Exception as e:
-                print(f"An error occurred: {str(e)}")
+                logging.error(f"An error occurred: {str(e)}")
                 return None, None, None
         else: 
             logging.error(f'{url} is not a Youtube Link')
