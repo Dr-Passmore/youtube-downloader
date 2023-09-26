@@ -5,7 +5,7 @@ import os
 import requests
 import time
 
-class VideoDownload:
+class VideoDownload():
     def __init__ (self):
         logging.info('VideoDownload')
        
