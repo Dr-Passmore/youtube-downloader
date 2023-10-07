@@ -64,10 +64,10 @@ class VideoDownload():
                         thumbnail_url = yt.thumbnail_url
                         video_streams = yt.streams.filter(file_extension="mp4", progressive=True)
                         VideoDownload.download_thumbnail(thumbnail_url)
-                        print(attempts)
                         attempts = attempts - 1
                     else:
                         break
+                logging.info(f'Successfull retrieved information for the {video_title}')
                 return video_title, thumbnail_url, video_streams
                 
             except Exception as e:
