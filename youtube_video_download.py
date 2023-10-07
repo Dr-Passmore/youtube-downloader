@@ -7,6 +7,9 @@ import time
 
 class VideoDownload():
     def __init__ (self):
+        """
+        Initialise the VideoDownload class.
+        """
         logging.info('VideoDownload')
        
     def check_url (url):
@@ -49,15 +52,24 @@ class VideoDownload():
         - video_streams (list): A list of available video streams for the video, represented as `Stream` objects. If no streams are found, this list is empty.
         '''
         if VideoDownload.check_url(url) == True:
+            attempts = 5
+            video_title = None
             try:
-                yt = YouTube(url)
-                #? Short delay added to resolve unable to retrieve error
-                time.sleep(5)
-                video_title = yt.title
-                thumbnail_url = yt.thumbnail_url
-                video_streams = yt.streams.filter(file_extension="mp4", progressive=True)
-                VideoDownload.download_thumbnail(thumbnail_url)
+                while attempts > 0:
+                    if video_title == None:
+                        yt = YouTube(url)
+                        #? Short delay added to resolve unable to retrieve error
+                        time.sleep(2)
+                        video_title = yt.title
+                        thumbnail_url = yt.thumbnail_url
+                        video_streams = yt.streams.filter(file_extension="mp4", progressive=True)
+                        VideoDownload.download_thumbnail(thumbnail_url)
+                        print(attempts)
+                        attempts = attempts - 1
+                    else:
+                        break
                 return video_title, thumbnail_url, video_streams
+                
             except Exception as e:
                 logging.error(f"An error occurred: {str(e)}")
                 return None, None, None
@@ -124,3 +136,4 @@ logging.basicConfig(filename='YouTubeVideoDownloader.log',
 
 if __name__ == "__main__":
     VideoDownload()
+    
