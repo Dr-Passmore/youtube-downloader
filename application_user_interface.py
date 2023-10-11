@@ -1,5 +1,7 @@
 import logging
 import tkinter as tk
+from tkinter import messagebox
+
 
 class UserInterface:
     def __init__(self) -> None:
@@ -14,11 +16,16 @@ class UserInterface:
         self.window.mainloop()
         
 
-    def exit():
-        pass
+    def exit(self):
+        self.window.destroy()
 
-    def confirm_exit():
-        pass
+    def confirm_exit(self):
+        result = messagebox.askquestion("Confirm Exit", "Do you really want to exit the application?")
+        if result == 'yes':
+            UserInterface.exit(self)
+    
+    def setup_window_close_event(self):
+        self.window.protocol("WM_DELETE_WINDOW", self.confirm_exit)
 
     def url_input():
         pass
