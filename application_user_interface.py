@@ -4,7 +4,7 @@ from tkinter import messagebox
 
 
 class UserInterface:
-    
+
     def __init__(self) -> None:
         '''
         Initialise the UserInterface class.
@@ -21,7 +21,7 @@ class UserInterface:
         Creates the main window of the application.
         '''
         self.window.mainloop()
-        
+
     def exit(self):
         '''
         Exits the application.
@@ -37,7 +37,7 @@ class UserInterface:
             "Confirm Exit", "Do you really want to exit the application?")
         if result == 'yes':
             UserInterface.exit(self)
-    
+
     def setup_window_close_event(self):
         '''
         Sets up the close event for the main window.
@@ -48,17 +48,18 @@ class UserInterface:
         # Exit confirmation checks for close event
         self.setup_window_close_event()
         # Exit button added
-        exit_button = tk.Button(self.window, 
-                                text="Exit", 
+        exit_button = tk.Button(self.window,
+                                text="Exit",
                                 command=self.confirm_exit)
         exit_button.pack(side=tk.RIGHT, anchor=tk.SE, padx=10, pady=10)
-        
+        # URL input field added
         self.log_text = tk.Text(self.window, height=10, state=tk.DISABLED)
         self.log_text.pack(side=tk.BOTTOM,
                            anchor=tk.S,
                            fill=tk.X,
                            padx=20,
                            pady=20)
+
     def url_input():
         pass
 
@@ -81,7 +82,7 @@ class UserInterface:
         for message in log_messages:
             self.log_text.insert(tk.END, message)
         self.log_text.config(state=tk.DISABLED)
-        
+
     def get_last_5_log_messages(self):
         '''
         Retrieves the last 5 log messages from the log file.
